@@ -2,6 +2,8 @@ const net = require('net');
 const fs = require('fs');
 
 const fileName = './index2.html';
+//const fileName = './testpdf.pdf';
+
 
 const conn = net.createConnection({ 
   host: 'localhost', 
@@ -17,9 +19,10 @@ conn.on('connect', () => {
 
 conn.on('data', (data) => {
   console.log('Received file from server.');
-  fs.writeFile(fileName, data, (err) => {
+  fs.writeFile(fileName, data, 'utf8', (err) => {
     if (err) throw err;
     console.log('The file has been saved.');
   })
+  conn.end();
 });
 
